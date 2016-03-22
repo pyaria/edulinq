@@ -58,15 +58,6 @@
     </Reference>
     <Reference Include="System" />
   </ItemGroup>
-  <ItemGroup Condition="'$(Configuration)' == 'LinqBridge implementation'">
-    <Reference Include="LinqBridge">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\LinqBridge.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup Condition="'$(Configuration)' == 'Normal LINQ'">
-    <Reference Include="System.Core" />
-  </ItemGroup>
   <ItemGroup>
     <Compile Include="AggregateTest.cs" />
     <Compile Include="AllTest.cs" />
@@ -138,6 +129,12 @@
       <Project>{C552666B-5660-445A-AA21-CF807D03C83E}</Project>
       <Name>Edulinq.TestSupport</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

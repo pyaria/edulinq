@@ -1,0 +1,11 @@
+C:\Users\jadetong\SmartCompany\Jade_Learning\edulinq\src\Edulinq.Tests\bin\Edulinq implementation\Edulinq.Tests.dll
+C:\Users\jadetong\SmartCompany\Jade_Learning\edulinq\src\Edulinq.Tests\bin\Edulinq implementation\Edulinq.Tests.pdb
+C:\Users\jadetong\SmartCompany\Jade_Learning\edulinq\src\Edulinq.Tests\bin\Edulinq implementation\Edulinq.dll
+C:\Users\jadetong\SmartCompany\Jade_Learning\edulinq\src\Edulinq.Tests\bin\Edulinq implementation\Edulinq.TestSupport.dll
+C:\Users\jadetong\SmartCompany\Jade_Learning\edulinq\src\Edulinq.Tests\bin\Edulinq implementation\nunit.framework.dll
+C:\Users\jadetong\SmartCompany\Jade_Learning\edulinq\src\Edulinq.Tests\bin\Edulinq implementation\Edulinq.pdb
+C:\Users\jadetong\SmartCompany\Jade_Learning\edulinq\src\Edulinq.Tests\bin\Edulinq implementation\Edulinq.TestSupport.pdb
+C:\Users\jadetong\SmartCompany\Jade_Learning\edulinq\src\Edulinq.Tests\bin\Edulinq implementation\nunit.framework.xml
+C:\Users\jadetong\SmartCompany\Jade_Learning\edulinq\src\Edulinq.Tests\obj\Edulinq implementation\Edulinq.Tests.csprojResolveAssemblyReference.cache
+C:\Users\jadetong\SmartCompany\Jade_Learning\edulinq\src\Edulinq.Tests\obj\Edulinq implementation\Edulinq.Tests.dll
+C:\Users\jadetong\SmartCompany\Jade_Learning\edulinq\src\Edulinq.Tests\obj\Edulinq implementation\Edulinq.Tests.pdb

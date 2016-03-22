@@ -20,79 +20,42 @@ namespace Edulinq
 {
     public static partial class Enumerable
     {
-#if IMPLEMENT_OPERATORS_USING_SELECTMANY
         public static IEnumerable<TSource> Where<TSource>(
             this IEnumerable<TSource> source,
             Func<TSource, bool> predicate)
         {
-            if (source == null)
-            {
-                throw new ArgumentNullException("source");
-            }
-            if (predicate == null)
-            {
-                throw new ArgumentNullException("predicate");
-            }
-            return source.SelectMany(x => Enumerable.Repeat(x, predicate(x) ? 1 : 0));
-        }
-#else
-        public static IEnumerable<TSource> Where<TSource>(
-            this IEnumerable<TSource> source,
-            Func<TSource, bool> predicate)
-        {
-            if (source == null)
-            {
-                throw new ArgumentNullException("source");
-            }
-            if (predicate == null)
-            {
-                throw new ArgumentNullException("predicate");
-            }
+            if (predicate == null) throw new ArgumentNullException("predicate");
+            if (source == null) throw new ArgumentNullException("source");
             return WhereImpl(source, predicate);
         }
-
         private static IEnumerable<TSource> WhereImpl<TSource>(
             this IEnumerable<TSource> source,
             Func<TSource, bool> predicate)
         {
             foreach (TSource item in source)
             {
-                if (predicate(item))
-                {
-                    yield return item;
-                }
+                if (predicate(item)) yield return item;
             }
         }
-#endif
-
         public static IEnumerable<TSource> Where<TSource>(
             this IEnumerable<TSource> source,
             Func<TSource, int, bool> predicate)
         {
-            if (source == null)
-            {
-                throw new ArgumentNullException("source");
-            }
-            if (predicate == null)
-            {
-                throw new ArgumentNullException("predicate");
-            }
-            return WhereImpl(source, predicate);
+            if (predicate == null) throw new ArgumentNullException("predicate");
+            if (source == null) throw new ArgumentNullException("source");
+            return WhereIndexImpl(source, predicate);
         }
-
-        private static IEnumerable<TSource> WhereImpl<TSource>(
+        private static IEnumerable<TSource> WhereIndexImpl<TSource>(
             this IEnumerable<TSource> source,
             Func<TSource, int, bool> predicate)
         {
-            int index = 0;
+            var index = 0;
             foreach (TSource item in source)
             {
-                if (predicate(item, index))
-                {
-                    yield return item;
-                }
+                if (predicate(item, index)) yield return item;
                 index++;
             }
         }
+
     }
 }

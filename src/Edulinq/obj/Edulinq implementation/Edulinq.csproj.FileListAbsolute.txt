@@ -1,0 +1,5 @@
+C:\Users\jadetong\SmartCompany\Jade_Learning\edulinq\src\Edulinq\bin\Edulinq implementation\Edulinq.dll
+C:\Users\jadetong\SmartCompany\Jade_Learning\edulinq\src\Edulinq\bin\Edulinq implementation\Edulinq.pdb
+C:\Users\jadetong\SmartCompany\Jade_Learning\edulinq\src\Edulinq\obj\Edulinq implementation\Edulinq.dll
+C:\Users\jadetong\SmartCompany\Jade_Learning\edulinq\src\Edulinq\obj\Edulinq implementation\Edulinq.pdb
+C:\Users\jadetong\SmartCompany\Jade_Learning\edulinq\src\Edulinq\obj\Edulinq implementation\Edulinq.csprojResolveAssemblyReference.cache

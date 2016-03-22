@@ -20,7 +20,6 @@ using NUnit.Framework;
 
 namespace Edulinq.Tests
 {
-#if !LINQBRIDGE && !DOTNET35_ONLY
     [TestFixture]
     public class ZipTest
     {
@@ -97,5 +96,4 @@ namespace Edulinq.Tests
             query.AssertSequenceEqual("ab", "bc", "cd", "de");
         }
     }
-#endif
 }

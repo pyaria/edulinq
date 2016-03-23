@@ -20,72 +20,40 @@ namespace Edulinq
 {
     public static partial class Enumerable
     {
-#if IMPLEMENT_OPERATORS_USING_SELECTMANY
         public static IEnumerable<TResult> Select<TSource, TResult>(
             this IEnumerable<TSource> source,
             Func<TSource, TResult> selector)
         {
-            if (source == null)
-            {
-                throw new ArgumentNullException("source");
-            }
-            if (selector == null)
-            {
-                throw new ArgumentNullException("selector");
-            }
-            return source.SelectMany(x => Enumerable.Repeat(selector(x), 1));
-        }
-#else
-        public static IEnumerable<TResult> Select<TSource, TResult>(
-            this IEnumerable<TSource> source,
-            Func<TSource, TResult> selector)
-        {
-            if (source == null)
-            {
-                throw new ArgumentNullException("source");
-            }
-            if (selector == null)
-            {
-                throw new ArgumentNullException("selector");
-            }
+            if (selector == null) throw new ArgumentNullException("selector");
+            if (source == null) throw new ArgumentNullException("source");
             return SelectImpl(source, selector);
         }
-
-        private static IEnumerable<TResult> SelectImpl<TSource, TResult>(
-            this IEnumerable<TSource> source,
+        public static IEnumerable<TResult> SelectImpl<TSource, TResult>(
+            this IEnumerable<TSource>source,
             Func<TSource, TResult> selector)
         {
-            foreach (TSource item in source)
+            foreach (TSource e in source)
             {
-                yield return selector(item);
+                yield return selector(e);
             }
         }
-#endif
-
         public static IEnumerable<TResult> Select<TSource, TResult>(
             this IEnumerable<TSource> source,
             Func<TSource, int, TResult> selector)
         {
-            if (source == null)
-            {
-                throw new ArgumentNullException("source");
-            }
-            if (selector == null)
-            {
-                throw new ArgumentNullException("selector");
-            }
-            return SelectImpl(source, selector);
+            if (selector == null) throw new ArgumentNullException("selector");
+            if (source == null) throw new ArgumentNullException("source");
+            return SelectWithIndexImpl(source, selector);
         }
-
-        private static IEnumerable<TResult> SelectImpl<TSource, TResult>(
+        public static IEnumerable<TResult> SelectWithIndexImpl<TSource, TResult>(
             this IEnumerable<TSource> source,
             Func<TSource, int, TResult> selector)
         {
-            int index = 0;
-            foreach (TSource item in source)
+            var indexer = 0;
+            foreach (TSource e in source)
             {
-                yield return selector(item, index);
-                index++;
+                yield return selector(e, indexer);
+                indexer++;
             }
         }
     }

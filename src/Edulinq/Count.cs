@@ -21,83 +21,36 @@ namespace Edulinq
 {
     public static partial class Enumerable
     {
-        public static int Count<TSource>(this IEnumerable<TSource> source)
+        public static int Count<TSource>(
+            this IEnumerable<TSource> source)
         {
-            if (source == null)
+            if (source == null) throw new ArgumentNullException("source");
+            var count = 0;
+            var maxFlag = false;
+            var a = source.GetEnumerator();      
+            foreach (TSource item in source)
             {
-                throw new ArgumentNullException("source");
+                if (maxFlag == true) throw new OverflowException("source");
+                count++;
+                if (count == int.MaxValue) maxFlag = true;
             }
-
-            int count;
-            if (TryFastCount(source, out count))
-            {
-                return count;
-            }
-
-            // Do it the slow way - and make sure we overflow appropriately
-            checked
-            {
-                using (var iterator = source.GetEnumerator())
-                {
-                    while (iterator.MoveNext())
-                    {
-                        count++;
-                    }
-                }
-                return count;
-            }
+            return count;
         }
-
-        public static int Count<TSource>(this IEnumerable<TSource> source,
+        public static int Count<TSource>(
+            this IEnumerable<TSource> source,
             Func<TSource, bool> predicate)
         {
-            if (source == null)
+            if (predicate == null) throw new ArgumentNullException("predicate");
+            if (source == null) throw new ArgumentNullException("source");
+            var count = 0;
+            var maxFlag = false;
+            foreach (TSource item in source)
             {
-                throw new ArgumentNullException("source");
+                if (maxFlag == true) throw new OverflowException("source");
+                if (predicate(item)) count++;
+                if (count == int.MaxValue) maxFlag = true;
             }
-            if (predicate == null)
-            {
-                throw new ArgumentNullException("predicate");
-            }
-
-            // No way of optimizing this. Do it the slow way, with overflow.
-            checked
-            {
-                int count = 0;
-                foreach (TSource item in source)
-                {
-                    if (predicate(item))
-                    {
-                        count++;
-                    }
-                }
-                return count;
-            }
-        }
-
-        private static bool TryFastCount<TSource>(
-            IEnumerable<TSource> source,
-            out int count)
-        {
-            // Optimization for ICollection<T>
-            ICollection<TSource> genericCollection = source as ICollection<TSource>;
-            if (genericCollection != null)
-            {
-                count = genericCollection.Count;
-                return true;
-            }
-
-            // Optimization for ICollection
-            ICollection nonGenericCollection = source as ICollection;
-            if (nonGenericCollection != null)
-            {
-                count = nonGenericCollection.Count;
-                return true;
-            }
-
-            // Can't retrieve the count quickly. Oh well.
-            count = 0;
-            return false;
+            return count;
         }
     }
 }

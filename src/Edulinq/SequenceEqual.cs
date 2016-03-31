@@ -48,13 +48,13 @@ namespace Edulinq
 
             int count1;
             int count2;
-            if (TryFastCount(first, out count1) && TryFastCount(second, out count2))
-            {
-                if (count1 != count2)
-                {
-                    return false;
-                }
-            }
+            //if (TryFastCount(first, out count1) && TryFastCount(second, out count2))
+            //{
+            //    if (count1 != count2)
+            //    {
+            //        return false;
+            //    }
+            //}
 
             comparer = comparer ?? EqualityComparer<TSource>.Default;
 #if SEQUENCE_EQUALS_IMPLEMENTATION_1

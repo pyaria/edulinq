@@ -21,67 +21,35 @@ namespace Edulinq
 {
     public static partial class Enumerable
     {
-        public static long LongCount<TSource>(this IEnumerable<TSource> source)
+       public static Int64 LongCount<TSource>(
+           this IEnumerable<TSource> source)
         {
-            if (source == null)
+            if (source == null) throw new ArgumentNullException("source");
+            Int64 count = 0;
+            var maxFlag = false;
+            foreach (TSource item in source)
             {
-                throw new ArgumentNullException("source");
+                if (maxFlag == true) throw new OverflowException("source");
+                count++;
+                if (count == Int64.MaxValue) maxFlag = true;
             }
-
-            // Optimization for ICollection<T>
-            ICollection<TSource> genericCollection = source as ICollection<TSource>;
-            if (genericCollection != null)
-            {
-                return genericCollection.Count;
-            }
-
-            // Optimization for ICollection
-            ICollection nonGenericCollection = source as ICollection;
-            if (nonGenericCollection != null)
-            {
-                return nonGenericCollection.Count;
-            }
-
-            // Do it the slow way - and make sure we overflow appropriately
-            checked
-            {
-                long count = 0;
-                using (var iterator = source.GetEnumerator())
-                {
-                    while (iterator.MoveNext())
-                    {
-                        count++;
-                    }
-                }
-                return count;
-            }
+            return count;
         }
-
-        public static long LongCount<TSource>(this IEnumerable<TSource> source,
+        public static Int64 LongCount<TSource>(
+            this IEnumerable<TSource> source,
             Func<TSource, bool> predicate)
         {
-            if (source == null)
+            if (source == null) throw new ArgumentNullException("source");
+            if (predicate == null) throw new ArgumentNullException("predicate");
+            Int64 count = 0;
+            var maxFlag = false;
+            foreach (TSource item in source)
             {
-                throw new ArgumentNullException("source");
+                if (maxFlag == true) throw new OverflowException("source");
+                if (predicate(item)) count++;
+                if (count == Int64.MaxValue) maxFlag = true;
             }
-            if (predicate == null)
-            {
-                throw new ArgumentNullException("predicate");
-            }
-
-            // No way of optimizing this. Do it the slow way, with overflow.
-            checked
-            {
-                long count = 0;
-                foreach (TSource item in source)
-                {
-                    if (predicate(item))
-                    {
-                        count++;
-                    }
-                }
-                return count;
-            }
+            return count;
         }
-    }
+    }    
 }

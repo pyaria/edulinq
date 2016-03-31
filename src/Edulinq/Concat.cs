@@ -40,14 +40,8 @@ namespace Edulinq
             this IEnumerable<TSource> first,
             IEnumerable<TSource> second)
         {
-            if (first == null)
-            {
-                throw new ArgumentNullException("first");
-            }
-            if (second == null)
-            {
-                throw new ArgumentNullException("second");
-            }
+            if (first == null) throw new ArgumentNullException("first");
+            if (second == null) throw new ArgumentNullException("second");
             return ConcatImpl(first, second);
         }
 
@@ -59,8 +53,6 @@ namespace Edulinq
             {
                 yield return item;
             }
-            // Avoid hanging onto a reference we don't really need
-            first = null;
             foreach (TSource item in second)
             {
                 yield return item;

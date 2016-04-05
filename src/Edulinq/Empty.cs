@@ -22,18 +22,30 @@ namespace Edulinq
 {
     public static partial class Enumerable
     {
+        private static void __init__()
+        {
+            new EmptyDictionary() { };
+        }
         public static IEnumerable<TResult> Empty<TResult>()
         {
-            var dictionary = new Dictionary<Type, Type[]>();
+            var requestType = typeof(TResult);
             
-            foreach (Type type in dictionary.Keys)
-            {
-                //if (type == TResult) return dictionary[type];
-                var a = type.Name;
-            }
             return new TResult[] { };
         }
-
-
+        //private static TResult[] EmptyImpl<TResult>()
+        //{
+            
+        //}
     }
+    public class EmptyDictionary
+    {
+        Dictionary<Type, Type[]> dictionary = new Dictionary<Type, Type[]>();
+        private static Type[] CheckDictionary<Type>(Dictionary<Type, Type[]> dict, Type type)
+        {
+            if (dict[type] == null) dict[type] = new Type[] { };
+            return dict[type];
+        }
+    }
+
+
 }

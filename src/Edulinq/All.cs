@@ -20,25 +20,15 @@ namespace Edulinq
 {
     public static partial class Enumerable
     {
-        public static bool All<TSource>(
-            this IEnumerable<TSource> source,
-            Func<TSource, bool> predicate)
+       public static bool All<TSource>(
+           this IEnumerable<TSource> source,
+           Func<TSource, bool> predicate)
         {
-            if (source == null)
-            {
-                throw new ArgumentNullException("source");
-            }
-            if (predicate == null)
-            {
-                throw new ArgumentNullException("predicate");
-            }
-
+            if (source == null) throw new ArgumentNullException("source");
+            if (predicate == null) throw new ArgumentNullException("predicate");
             foreach (TSource item in source)
             {
-                if (!predicate(item))
-                {
-                    return false;
-                }
+                if (!predicate(item)) return false;
             }
             return true;
         }

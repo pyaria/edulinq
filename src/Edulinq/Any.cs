@@ -20,60 +20,28 @@ namespace Edulinq
 {
     public static partial class Enumerable
     {
-#if IMPLEMENT_ANY_USING_ALL
         public static bool Any<TSource>(
             this IEnumerable<TSource> source)
         {
-            return source.Any(x => true);
-        }
-
-        public static bool Any<TSource>(
-            this IEnumerable<TSource> source,
-            Func<TSource, bool> predicate)
-        {
-            if (predicate == null)
-            {
-                throw new ArgumentNullException("predicate");
-            }
-            return !source.All(x => !predicate(x));
-        }
-#else
-        public static bool Any<TSource>(
-            this IEnumerable<TSource> source)
-        {
-            if (source == null)
-            {
-                throw new ArgumentNullException("source");
-            }
-            
-            using (IEnumerator<TSource> iterator = source.GetEnumerator())
-            {
-                return iterator.MoveNext();
-            }
-        }
-
-        public static bool Any<TSource>(
-            this IEnumerable<TSource> source,
-            Func<TSource, bool> predicate)
-        {
-            if (source == null)
-            {
-                throw new ArgumentNullException("source");
-            }
-            if (predicate == null)
-            {
-                throw new ArgumentNullException("predicate");
-            }
-
+            if (source == null) throw new ArgumentNullException("source");
             foreach (TSource item in source)
             {
-                if (predicate(item))
-                {
-                    return true;
-                }
+                return (item == null) ? false : true;
             }
             return false;
         }
-#endif
+        public static bool Any<TSource>(
+            this IEnumerable<TSource> source,
+            Func<TSource, bool> predicate)
+        {
+            if (source == null) throw new ArgumentNullException("source");
+            if (predicate == null) throw new ArgumentNullException("predicate");
+            if (!source.Any()) return false;
+            foreach (TSource item in source)
+            {
+                if (predicate(item)) return true;
+            }
+            return false;
+        }
     }
 }
